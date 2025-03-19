@@ -1,11 +1,15 @@
 package exercicio04;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class Main {
+    static Scanner sc = new Scanner(System.in);
+    static Funcionario[] funcionario = new Funcionario[5];
+    static int index = 0;
+
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
         int opcao;
 
         do {
@@ -37,14 +41,40 @@ public class Main {
     }
 
     public static void cadastrar() {
-
+        String nome, cargo;
+        double salario;
+        if(index < funcionario.length) {
+            System.out.print("Nome: ");
+            nome = sc.next();
+            System.out.print("Cargo: ");
+            cargo = sc.next();
+            System.out.print("Salário: ");
+            salario = sc.nextDouble();
+            funcionario[index] = new Funcionario(nome, cargo, salario);
+            index++;
+        }
     }
 
     public static void pesquisar() {
-
+        String nome;
+        System.out.print("Nome para pesquisa: ");
+        nome = sc.next();
+        for(int i = 0; i < index; i++) {
+            if(funcionario[i].nome.equalsIgnoreCase(nome)) {
+                System.out.println(nome + " encontrado");
+                return;
+            }
+        }
+        System.out.println(nome + " não encontrado");
     }
 
     public static void listar() {
-
+        DecimalFormat df = new DecimalFormat("0.00");
+        for(int i = 0; i < index; i++) {
+            System.out.println("Nome: " + funcionario[i].nome);
+            System.out.println("Cargo: " + funcionario[i].cargo);
+            System.out.println("Salário: R$ " + df.format(funcionario[i].salario));
+            System.out.println();
+        }
     }
 }
